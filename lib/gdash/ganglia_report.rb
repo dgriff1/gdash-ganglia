@@ -1,6 +1,6 @@
 module GDash
   class GangliaReport < Ganglia
-    attr_accessor :report, :cluster, :host
+    attr_accessor :report, :cluster, :host, :prefix
 
     private
 
@@ -9,6 +9,7 @@ module GDash
         :g => report,
         :c => cluster
       })
+      params[:prefix] = prefix if prefix
       params[:h] = host if host
       params
     end

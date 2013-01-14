@@ -13,6 +13,7 @@ module GDash
         report.report = "the_report"
         report.cluster = "The Cluster"
         report.host = "the-host-01"
+        report.prefix = "the-prefix"
       end
     end
     
@@ -25,6 +26,7 @@ module GDash
     its(:report) { should == "the_report" }
     its(:cluster) { should == "The Cluster" }
     its(:host) { should == "the-host-01" }
+    its(:prefix) { should == "the-prefix" }
 
     describe "#to_url" do
       subject { report.to_url }
@@ -34,6 +36,7 @@ module GDash
       it { should =~ /g=the_report/ }
       it { should =~ /h=the-host-01/ }
       it { should =~ /c=The\+Cluster/ }
+      it { should =~ /prefix=the-prefix/ }
 
       it "includes the window" do
         report.window.ganglia_params.each do |k, v|
