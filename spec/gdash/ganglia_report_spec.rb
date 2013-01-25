@@ -21,12 +21,29 @@ module GDash
 
     it { should be_a Ganglia }
     
+    its(:data_center) { should == data_center }
+    its(:window) { should be_a Window }
     its(:size) { should == "xlarge" }
     its(:title) { should == "The Graph Title" }
     its(:report) { should == "the_report" }
     its(:cluster) { should == "The Cluster" }
     its(:host) { should == "the-host-01" }
     its(:prefix) { should == "the-prefix" }
+
+    describe "#clone" do
+      subject { report.clone }
+
+      its(:data_center) { should == report.data_center }
+      its(:window) { should == report.window }
+      its(:name) { should == report.name }
+      its(:embed) { should == report.embed }
+      its(:size) { should == report.size }
+      its(:title) { should == report.title }
+      its(:report) { should == report.report }
+      its(:cluster) { should == report.cluster }
+      its(:host) { should == report.host }
+      its(:prefix) { should == report.prefix }
+    end
 
     describe "#to_url" do
       subject { report.to_url }

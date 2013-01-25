@@ -12,6 +12,10 @@ module GDash
       self.upper_limit = range.end
     end
 
+    def clone
+      self.class.new :name => name, :embed => embed, :data_center => data_center, :window => window, :hosts => hosts, :metrics => metrics, :vertical_label => vertical_label, :upper_limit => upper_limit, :lower_limit => lower_limit, :type => type, :legend => legend, :aggregate => aggregate
+    end
+
     private
 
     def url_params

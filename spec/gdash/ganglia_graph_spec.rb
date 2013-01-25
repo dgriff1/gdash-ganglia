@@ -31,6 +31,25 @@ module GDash
     its(:type) { should == "stack" }
     its(:legend) { should be_true }
     its(:aggregate) { should be_true }
+    its(:data_center) { should == data_center }
+    its(:window) { should be_a Window }
+
+    describe "#clone" do
+      subject { graph.clone }
+
+      its(:name) { should == graph.name }
+      its(:embed) { should == graph.embed }
+      its(:hosts) { should == graph.hosts }
+      its(:metrics) { should == graph.metrics }
+      its(:vertical_label) { should == graph.vertical_label }
+      its(:upper_limit) { should == graph.upper_limit }
+      its(:lower_limit) { should == graph.lower_limit }
+      its(:type) { should == graph.type }
+      its(:legend) { should == graph.legend }
+      its(:aggregate) { should == graph.aggregate }
+      its(:data_center) { should == graph.data_center }
+      its(:window) { should == graph.window } 
+    end
 
     describe "#to_url" do
       subject { graph.to_url }
