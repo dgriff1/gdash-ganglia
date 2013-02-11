@@ -12,7 +12,7 @@ module GDash
         report.title = "The Graph Title"
         report.report = "the_report"
         report.cluster = "The Cluster"
-        report.host = "the-host-01"
+        report.hosts = "the-host-01"
         report.prefix = "the-prefix"
       end
     end
@@ -27,7 +27,7 @@ module GDash
     its(:title) { should == "The Graph Title" }
     its(:report) { should == "the_report" }
     its(:cluster) { should == "The Cluster" }
-    its(:host) { should == "the-host-01" }
+    its(:hosts) { should == "the-host-01" }
     its(:prefix) { should == "the-prefix" }
 
     describe "#clone" do
@@ -41,7 +41,7 @@ module GDash
       its(:title) { should == report.title }
       its(:report) { should == report.report }
       its(:cluster) { should == report.cluster }
-      its(:host) { should == report.host }
+      its(:hosts) { should == report.hosts }
       its(:prefix) { should == report.prefix }
     end
 
@@ -51,7 +51,7 @@ module GDash
       it { should =~ /z=xlarge/ }
       it { should =~ /title=The\+Graph\+Title/ }
       it { should =~ /g=the_report/ }
-      it { should =~ /h=the-host-01/ }
+      it { should =~ /hreg\[\]=the-host-01/ }
       it { should =~ /c=The\+Cluster/ }
       it { should =~ /prefix=the-prefix/ }
 
@@ -62,8 +62,8 @@ module GDash
       end
       
       context "without host" do
-        before { report.host = nil }
-        it { should_not =~ /h=/ }
+        before { report.hosts = nil }
+        it { should_not =~ /hreg\[\]=/ }
       end
     end
   end

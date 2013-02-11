@@ -1,9 +1,9 @@
 module GDash
   class GangliaReport < Ganglia
-    attr_accessor :report, :cluster, :host, :prefix
+    attr_accessor :report, :cluster, :hosts, :prefix
 
     def clone
-      self.class.new :name => name, :embed => embed, :data_center => data_center, :window => window, :size => size, :title => title, :report => report, :cluster => cluster, :host => host, :prefix => prefix
+      self.class.new :name => name, :embed => embed, :data_center => data_center, :window => window, :size => size, :title => title, :report => report, :cluster => cluster, :hosts => hosts, :prefix => prefix
     end
 
     private
@@ -14,7 +14,7 @@ module GDash
         :c => cluster
       })
       params[:prefix] = prefix if prefix
-      params[:h] = host if host
+      params["hreg[]"] = hosts if hosts
       params
     end
   end
