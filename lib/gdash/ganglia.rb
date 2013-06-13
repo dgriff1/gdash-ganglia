@@ -4,10 +4,15 @@ Bundler.require
 require "gdash"
 
 module GDash
-  class Ganglia < Named
-    SIZES = ["small", "medium", "large", "xlarge", "xxlarge"]
+  module Ganglia
+    class << self
+      def included klass
+        klass.attr :embed, :default => true
+        klass.attr :window
+      end
+    end
 
-    attr_accessor :name, :size, :title, :embed
+    SIZES = ["small", "medium", "large", "xlarge", "xxlarge"]
 
     def initialize *args, &block
       @size = "large"
@@ -15,9 +20,17 @@ module GDash
       super *args, &block
     end
 
+    def size s = nil
+      if s.nil?
+        @size ||= "large"
+      else
+        raise ArgumentError.new("#{s.inspect} is not a valid Ganglia size") unless Ganglia::SIZES.include? s.to_s
+        @size = s.to_s
+      end
+    end
+
     def size= s
-      raise ArgumentError.new("#{s.inspect} is not a valid Ganglia size") unless SIZES.include? s
-      @size = s
+      self.size s
     end
 
     def custom args = {}
@@ -27,27 +40,9 @@ module GDash
         @custom = (@custom || {}).merge args
       end
     end
-
-    def to_url
-      params = url_params.map { |k, v| "#{k}=#{Rack::Utils.escape(v)}" }.join("&")
-      "#{data_center.ganglia_host}/graph.php?#{params}"
-    end
-
-    def to_html html = nil
-      html ||= Builder::XmlMarkup.new
-      html.img :src => to_url.to_sym
-    end
-
-    private
-
-    def url_params
-      window.ganglia_params.merge(custom).merge({
-       :z         => size,
-       :title     => title,
-       :embed     => embed ? 1 : 0 })
-    end
   end
 end
 
 require "gdash/ganglia_graph"
 require "gdash/ganglia_report"
+require "gdash/ganglia_view"

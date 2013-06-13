@@ -3,6 +3,9 @@ require 'bundler'
 
 Bundler.require :default, :test
 
+require 'capybara/rspec'
+require 'turnip/capybara'
+
 $:.unshift "lib"
 require 'gdash/ganglia'
 
