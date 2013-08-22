@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem "gdash", :git => "git://git.f4tech.com/gdash.git"
+gem "gdash", :git => "git://github.com/RallySoftware/gdash.git"
 
 group :development do
   gem "rake"
