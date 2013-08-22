@@ -88,7 +88,7 @@ module GDash
         end
       end
 
-      it { should have_selector "img" }
+      it { should have_selector "img.click-enlarge" }
 
       it { should =~ /http:\/\/ganglia-host:1234\/path\/to/ }
       it { should =~ /embed=1/ }

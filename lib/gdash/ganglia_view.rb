@@ -27,9 +27,18 @@ module GDash
     def ganglia model, params
       window = model.window || @scope.window || self.window || GDash::Window.default
       data_center = @scope.data_center
-      params = params.merge(window.ganglia_params).merge(model.options).merge({ :z => model.size, :title => model.title, :embed => (model.embed ? 1 : 0) })
+
+      params = params.merge(window.ganglia_params).merge(model.options).merge({ :z => :xxlarge, :title => model.title, :embed => (model.embed ? 1 : 0) })
       query_string = params.map { |k, v| "#{k}=#{Rack::Utils.escape(v)}" }.join("&")
-      html.img :src => "#{data_center.ganglia_host}/graph.php?#{query_string}".to_sym
+      xxlarge = "#{data_center.ganglia_host}/graph.php?#{query_string}".to_sym
+
+      params = params.merge({ :z => model.size })
+      query_string = params.map { |k, v| "#{k}=#{Rack::Utils.escape(v)}" }.join("&")
+      medium = "#{data_center.ganglia_host}/graph.php?#{query_string}".to_sym
+
+      html.a :href => xxlarge, :class => "click-enlarge" do
+        html.img :src => medium, :xxlarge => xxlarge
+      end
     end
   end
 end
