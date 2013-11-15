@@ -37,7 +37,7 @@ module GDash
       medium = "#{data_center.ganglia_host}/graph.php?#{query_string}".to_sym
 
       html.a :href => xxlarge, :class => "click-enlarge" do
-        html.img :src => medium, :xxlarge => xxlarge
+        html.img :src => medium, :xxlarge => xxlarge, :id => Rack::Utils.escape(params[:g]), :class => 'ganglia_graph'
       end
     end
   end

@@ -36,7 +36,7 @@ module GDash
       it { should =~ /foo=bar/ }
       it { should =~ /baz=quux/ }
       it { should =~ /a=b/ }
-      
+
       it { should =~ /z=xlarge/ }
       it { should =~ /title=The\+Graph\+Title/ }
       it { should =~ /vl=A\+Label/ }
@@ -46,12 +46,12 @@ module GDash
       it { should =~ /mreg\[\]=#{Rack::Utils.escape("metric.name.[\\d]")}/ }
       it { should =~ /gtype=stack/ }
       it { should =~ /aggregate=1/ }
-      
+
       context "with legend" do
         before { ganglia_graph.legend = true }
         it { should =~ /glegend=show/ }
       end
-      
+
       context "without legend" do
         before { ganglia_graph.legend = false }
         it { should =~ /glegend=hide/ }
@@ -104,17 +104,20 @@ module GDash
       it { should =~ /c=The\+Cluster/ }
       it { should =~ /prefix=the-prefix/ }
 
+      it { should =~ /id="the_report"/ }
+      it { should =~ /class="ganglia_graph"/ }
+
       it "includes the window" do
         Window.all.last.ganglia_params.each do |k, v|
           subject.should =~ /#{Regexp.escape "#{k}=#{Rack::Utils.escape(v)}"}/
         end
       end
-      
+
       context "without hosts" do
         before { ganglia_report.hosts = nil }
         it { should_not =~ /hreg\[\]=/ }
       end
-      
+
       context "without host" do
         before { ganglia_report.host = nil }
         it { should_not =~ /h=/ }
