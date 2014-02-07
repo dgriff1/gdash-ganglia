@@ -13,6 +13,7 @@ module GDash
         hosts "the-host-01|the-host-02"
         host "the-host-01"
         prefix "the-prefix"
+        help "some help here"
       end
     end
     
@@ -27,5 +28,6 @@ module GDash
     its(:hosts) { should == "the-host-01|the-host-02" }
     its(:host) { should == "the-host-01" }
     its(:prefix) { should == "the-prefix" }
+    its(:help) { should == "some help here" }
   end
 end

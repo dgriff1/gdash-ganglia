@@ -18,6 +18,7 @@ module GDash
       params = { :g => report.report, :c => (report.cluster || @scope.ganglia_cluster) }
       params[:prefix] = (report.prefix || @scope.ganglia_prefix) if (report.prefix || @scope.ganglia_prefix)
       params["hreg[]"] = @scope.hosts if @scope.hosts
+      params[:help] = (report.help || "")
       params["h"] = @scope.host if @scope.host
       ganglia report, params
     end
@@ -37,7 +38,7 @@ module GDash
       medium = "#{data_center.ganglia_host}/graph.php?#{query_string}".to_sym
 
       html.a :href => xxlarge, :class => "click-enlarge" do
-        html.img :src => medium, :xxlarge => xxlarge, :id => Rack::Utils.escape(params[:g]), :class => 'ganglia_graph'
+        html.img :src => medium, :xxlarge => xxlarge, :id => Rack::Utils.escape(params[:g]), :class => 'ganglia_graph', :data => params[:help]
       end
     end
   end
